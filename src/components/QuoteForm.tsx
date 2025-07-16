@@ -1,5 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
+import './QuoteForm.css';
 
 interface QuoteFormProps {
   currentStep: number;
@@ -29,63 +30,63 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-8">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900">Obtenir un devis personnalisé</h2>
+    <div className="quoteformw-bg">
+      <div className="quoteformw-container">
+        <div className="quoteformw-header">
+          <h2 className="quoteformw-title">Obtenir un devis personnalisé</h2>
           <button
             onClick={onResetForm}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="quoteformw-close"
+            aria-label="Fermer"
           >
-            <X className="h-6 w-6" />
+            <X size={24} />
           </button>
         </div>
         {/* Progress Bar */}
-        <div className="mb-8">
-          <div className="flex justify-between text-sm text-gray-600 mb-2">
+        <div className="quoteformw-progress">
+          <div className="quoteformw-progress-labels">
             <span>Étape {currentStep} sur 3</span>
             <span>{Math.round((currentStep / 3) * 100)}% complété</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="quoteformw-progress-bar">
             <div
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+              className="quoteformw-progress-bar-inner"
               style={{ width: `${(currentStep / 3) * 100}%` }}
             ></div>
           </div>
         </div>
         {/* Step 1: Profil Conducteur */}
         {currentStep === 1 && (
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Profil Conducteur</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="quoteformw-step">
+            <h3 className="quoteformw-step-title">Profil Conducteur</h3>
+            <div className="quoteformw-grid">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Âge</label>
+                <label className="quoteformw-label">Âge</label>
                 <input
                   type="number"
                   value={formData.age}
                   onChange={(e) => handleInputChange(e, 'age')}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="quoteformw-input"
                   placeholder="Ex: 30"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Années de permis</label>
+                <label className="quoteformw-label">Années de permis</label>
                 <input
                   type="number"
                   value={formData.licenseYears}
                   onChange={(e) => handleInputChange(e, 'licenseYears')}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="quoteformw-input"
                   placeholder="Ex: 5"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Sinistres dans les 3 dernières années</label>
+              <label className="quoteformw-label">Sinistres dans les 3 dernières années</label>
               <select
                 value={formData.accidents}
                 onChange={(e) => handleInputChange(e, 'accidents')}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="quoteformw-input"
               >
                 <option value="">Sélectionner</option>
                 <option value="0">Aucun sinistre</option>
@@ -95,11 +96,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Usage du véhicule</label>
+              <label className="quoteformw-label">Usage du véhicule</label>
               <select
                 value={formData.usage}
                 onChange={(e) => handleInputChange(e, 'usage')}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="quoteformw-input"
               >
                 <option value="">Sélectionner</option>
                 <option value="personnel">Personnel</option>
@@ -108,11 +109,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Kilométrage annuel</label>
+              <label className="quoteformw-label">Kilométrage annuel</label>
               <select
                 value={formData.annualKm}
                 onChange={(e) => handleInputChange(e, 'annualKm')}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="quoteformw-input"
               >
                 <option value="">Sélectionner</option>
                 <option value="0-10000">0 - 10 000 km</option>
@@ -125,26 +126,25 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
         )}
         {/* Step 2: Véhicule */}
         {currentStep === 2 && (
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Informations Véhicule</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="quoteformw-step">
+            <h3 className="quoteformw-step-title">Informations Véhicule</h3>
+            <div className="quoteformw-grid">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Valeur du véhicule (FCFA)</label>
+                <label className="quoteformw-label">Valeur du véhicule (FCFA)</label>
                 <input
                   type="number"
                   value={formData.vehicleValue}
                   onChange={(e) => handleInputChange(e, 'vehicleValue')}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="quoteformw-input"
                   placeholder="Ex: 5000000"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Nombre de places</label>
+                <label className="quoteformw-label">Nombre de places</label>
                 <select
                   value={formData.seats}
                   onChange={(e) => handleInputChange(e, 'seats')}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="quoteformw-input"
                 >
                   <option value="">Sélectionner</option>
                   <option value="2">2 places</option>
@@ -156,11 +156,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Type d'énergie</label>
+              <label className="quoteformw-label">Type d'énergie</label>
               <select
                 value={formData.energy}
                 onChange={(e) => handleInputChange(e, 'energy')}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="quoteformw-input"
               >
                 <option value="">Sélectionner</option>
                 <option value="essence">Essence</option>
@@ -170,27 +170,26 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Date d'immatriculation</label>
+              <label className="quoteformw-label">Date d'immatriculation</label>
               <input
                 type="date"
                 value={formData.registrationDate}
                 onChange={(e) => handleInputChange(e, 'registrationDate')}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="quoteformw-input"
               />
             </div>
           </div>
         )}
         {/* Step 3: Besoins d'assurance */}
         {currentStep === 3 && (
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Besoins d'assurance</h3>
-
+          <div className="quoteformw-step">
+            <h3 className="quoteformw-step-title">Besoins d'assurance</h3>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Type de couverture</label>
+              <label className="quoteformw-label">Type de couverture</label>
               <select
                 value={formData.coverage}
                 onChange={(e) => handleInputChange(e, 'coverage')}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="quoteformw-input"
               >
                 <option value="">Sélectionner</option>
                 <option value="tiers">Responsabilité civile (Tiers)</option>
@@ -199,11 +198,11 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Franchise souhaitée (FCFA)</label>
+              <label className="quoteformw-label">Franchise souhaitée (FCFA)</label>
               <select
                 value={formData.deductible}
                 onChange={(e) => handleInputChange(e, 'deductible')}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="quoteformw-input"
               >
                 <option value="">Sélectionner</option>
                 <option value="0">Sans franchise</option>
@@ -213,17 +212,17 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">Options souhaitées</label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <label className="quoteformw-label">Options souhaitées</label>
+              <div className="quoteformw-options-grid">
                 {['Assistance 24h/24', 'Véhicule de remplacement', 'Bris de glace', 'Vol/Incendie', 'Protection juridique'].map((option) => (
-                  <label key={option} className="flex items-center space-x-2 cursor-pointer">
+                  <label key={option} className="quoteformw-checkbox-label">
                     <input
                       type="checkbox"
                       checked={formData.options.includes(option)}
                       onChange={() => handleOptionToggle(option)}
-                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                      className="quoteformw-checkbox"
                     />
-                    <span className="text-sm text-gray-700">{option}</span>
+                    <span>{option}</span>
                   </label>
                 ))}
               </div>
@@ -231,21 +230,17 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
           </div>
         )}
         {/* Navigation Buttons */}
-        <div className="flex justify-between pt-8">
+        <div className="quoteformw-nav">
           <button
             onClick={onPrevStep}
             disabled={currentStep === 1}
-            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-              currentStep === 1
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
+            className={`quoteformw-btn quoteformw-btn-secondary${currentStep === 1 ? ' quoteformw-btn-disabled' : ''}`}
           >
             Précédent
           </button>
           <button
             onClick={onNextStep}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            className="quoteformw-btn quoteformw-btn-primary"
           >
             {currentStep === 3 ? 'Comparer les offres' : 'Suivant'}
           </button>

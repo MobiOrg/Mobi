@@ -1,11 +1,25 @@
 :root {
+  --color-blue-dark: #22314A;
+  --color-blue-main: #2563EB;
+  --color-blue-vivid: #3B82F6;
+  --color-blue-light: #60A5FA;
+  --color-blue-bg: #E0EDFB;
+  --color-bg-light: #F6F8FB;
+  --color-bg-card: #fff;
+  --color-border: #E5EAF1;
+  --color-gray: #64748B;
+  --color-gray-light: #D1D5DB;
+  --color-accent: #FDE68A;
+  --color-footer: #22314A;
+  --color-footer-text: #D1D5DB;
+  --color-footer-border: #334155;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--color-blue-dark);
+  background: linear-gradient(135deg, var(--color-blue-bg) 0%, var(--color-blue-light) 100%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,24 +29,25 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-blue-main);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--color-blue-vivid);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(135deg, var(--color-blue-bg) 0%, var(--color-blue-light) 100%);
+  color: var(--color-blue-dark);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  color: var(--color-blue-dark);
 }
 
 button {
@@ -42,12 +57,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background: linear-gradient(90deg, var(--color-blue-main) 0%, var(--color-blue-vivid) 100%);
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background 0.2s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-blue-vivid);
+  background: linear-gradient(90deg, var(--color-blue-vivid) 0%, var(--color-blue-main) 100%);
 }
 button:focus,
 button:focus-visible {
@@ -56,13 +73,13 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--color-blue-dark);
+    background: linear-gradient(135deg, var(--color-blue-bg) 0%, var(--color-blue-light) 100%);
   }
   a:hover {
-    color: #747bff;
+    color: var(--color-blue-vivid);
   }
   button {
-    background-color: #f9f9f9;
+    background: linear-gradient(90deg, var(--color-blue-main) 0%, var(--color-blue-vivid) 100%);
   }
 }

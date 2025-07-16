@@ -1,55 +1,58 @@
 
+import React from 'react';
+import './Footer.css';
 import { Car } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <Car className="h-8 w-8 text-blue-400" />
-              <span className="text-xl font-bold">NOLI Motor</span>
-            </div>
-            <p className="text-gray-400">
-              Votre comparateur d'assurance auto de confiance en Côte d'Ivoire.
-              Trouvez la meilleure protection pour votre véhicule.
-            </p>
+    <footer className="footer">
+      <div className="footer-container">
+        {/* Colonne 1 : Logo & description */}
+        <div className="footer-col">
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 16 }}>
+            <Car style={{ color: '#3B82F6', width: 32, height: 32, marginRight: 10 }} />
+            <span style={{ color: '#fff', fontWeight: 700, fontSize: 22 }}>NOLI Motor</span>
           </div>
-
-          <div>
-            <h3 className="font-semibold mb-4">Services</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Assurance Auto</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Assurance Moto</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Assurance Habitation</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Assurance Santé</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-4">Support</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Centre d'aide</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold mb-4">Contact</h3>
-            <div className="space-y-2 text-gray-400">
-              <p>📍 Abidjan, Côte d'Ivoire</p>
-              <p>📞 +225 XX XX XX XX XX</p>
-              <p>✉️ contact@nolimotor.ci</p>
-            </div>
+          <div style={{ marginBottom: 16 }}>
+            Votre comparateur d'assurance auto de confiance en Côte d'Ivoire.<br />
+            Trouvez la meilleure protection pour votre véhicule.
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 NOLI Motor. Tous droits réservés.</p>
+        {/* Colonne 2 : Services */}
+        <div className="footer-col">
+          <div className="footer-title">Services</div>
+          <ul className="footer-list">
+            <li>Assurance Auto</li>
+            <li>Assurance Moto</li>
+            <li>Assurance Habitation</li>
+            <li>Assurance Santé</li>
+          </ul>
         </div>
+
+        {/* Colonne 3 : Support */}
+        <div className="footer-col">
+          <div className="footer-title">Support</div>
+          <ul className="footer-list">
+            <li>Centre d'aide</li>
+            <li>FAQ</li>
+            <li>Contact</li>
+            <li>Blog</li>
+          </ul>
+        </div>
+
+        {/* Colonne 4 : Contact */}
+        <div className="footer-col">
+          <div className="footer-title">Contact</div>
+          <ul className="footer-list">
+            <li>📍 Abidjan, Côte d'Ivoire</li>
+            <li>📞 +225 XX XX XX XX XX</li>
+            <li>✉️ contact@nolimotor.ci</li>
+          </ul>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        © {new Date().getFullYear()} NOLI Motor. Tous droits réservés.
       </div>
     </footer>
   );

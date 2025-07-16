@@ -7,7 +7,12 @@ import QuoteForm from './components/QuoteForm';
 import Results from './components/Results';
 import QuoteDownloadModal from './components/QuoteDownloadModal';
 import Footer from './components/Footer';
+import About from './components/About';
+import FAQ from './components/FAQ';
+import Assurance from './components/Assurance';
 import type { Quote, FormData } from './types/types';
+import './LoadingScreen.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App: React.FC = () => {
   const [showQuoteForm, setShowQuoteForm] = useState(false);
@@ -137,7 +142,7 @@ const App: React.FC = () => {
 
   const handleDownloadQuote = (quote: Quote) => {
     setSelectedQuote(quote);
-    alert(`Devis PDF généré pour ${quote.insurer} - ${quote.price.toLocaleString()} FCFA`);
+    // alert(`Devis PDF généré pour ${quote.insurer} - ${quote.price.toLocaleString()} FCFA`);
   };
 
   const sendQuoteByEmail = () => {
@@ -150,53 +155,62 @@ const App: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-lg font-medium text-gray-700">Comparaison en cours...</p>
-          <p className="text-sm text-gray-500">Analyse des meilleures offres pour vous</p>
+      <div className="loading-bg">
+        <div className="loading-center">
+          <div className="loading-spinner"></div>
+          <p className="loading-title">Comparaison en cours...</p>
+          <p className="loading-desc">Analyse des meilleures offres pour vous</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <Router>
       <Header />
-      {!showQuoteForm && !showResults && (
-        <>
-          <HeroSection onCompareClick={() => setShowQuoteForm(true)} />
-          <Features />
-          <Partners />
-        </>
-      )}
-      {showQuoteForm && !showResults && (
-        <QuoteForm
-          currentStep={currentStep}
-          formData={formData}
-          onInputChange={handleInputChange}
-          onOptionToggle={handleOptionToggle}
-          onNextStep={nextStep}
-          onPrevStep={prevStep}
-          onResetForm={resetForm}
-        />
-      )}
-      {showResults && (
-        <Results
-          quotes={quotes}
-          onResetForm={resetForm}
-          onDownloadQuote={handleDownloadQuote}
-        />
-      )}
-      <QuoteDownloadModal
-        quote={selectedQuote}
-        onClose={() => setSelectedQuote(null)}
-        onDownload={handleDownloadQuote}
-        onSendEmail={sendQuoteByEmail}
-        onSendWhatsApp={sendQuoteByWhatsApp}
-      />
+      <Routes>
+        <Route path="/" element={
+          <div className="main-content min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+            {!showQuoteForm && !showResults && (
+              <>
+                <HeroSection onCompareClick={() => setShowQuoteForm(true)} />
+                <Features />
+                <Partners />
+              </>
+            )}
+            {showQuoteForm && !showResults && (
+              <QuoteForm
+                currentStep={currentStep}
+                formData={formData}
+                onInputChange={handleInputChange}
+                onOptionToggle={handleOptionToggle}
+                onNextStep={nextStep}
+                onPrevStep={prevStep}
+                onResetForm={resetForm}
+              />
+            )}
+            {showResults && (
+              <Results
+                quotes={quotes}
+                onResetForm={resetForm}
+                onDownloadQuote={handleDownloadQuote}
+              />
+            )}
+            <QuoteDownloadModal
+              quote={selectedQuote}
+              onClose={() => setSelectedQuote(null)}
+              onDownload={handleDownloadQuote}
+              onSendEmail={sendQuoteByEmail}
+              onSendWhatsApp={sendQuoteByWhatsApp}
+            />
+          </div>
+        } />
+        <Route path="/about" element={<About />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/assurance" element={<Assurance />} />
+      </Routes>
       <Footer />
-    </div>
+    </Router>
   );
 };
 

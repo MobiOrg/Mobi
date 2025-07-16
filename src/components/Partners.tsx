@@ -1,3 +1,4 @@
+import './Partners.css';
 
 const partners = [
   { name: 'NSIA Assurance', logo: '🛡️' },
@@ -10,16 +11,16 @@ const partners = [
 
 const Partners = () => {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+    <section className="partners-section">
+      <div className="partners-container">
+        <h2 className="partners-title">
           Nos Assureurs Partenaires
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+        <div className="partners-grid">
           {partners.map((partner, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-6 text-center hover:shadow-md transition-shadow">
-              <div className="text-4xl mb-2">{partner.logo}</div>
-              <p className="text-sm font-medium text-gray-700">{partner.name}</p>
+            <div key={index} className="partner-card">
+              <div className="partner-logo">{partner.logo}</div>
+              <p className="partner-name">{partner.name}</p>
             </div>
           ))}
         </div>

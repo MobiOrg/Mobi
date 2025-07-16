@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, Download, Mail, MessageSquare } from 'lucide-react';
 import type { Quote } from '../types/types';
-
+import './QuoteDownloadModal.css';
 
 interface QuoteDownloadModalProps {
   quote: Quote | null;
@@ -15,64 +15,49 @@ const QuoteDownloadModal: React.FC<QuoteDownloadModalProps> = ({ quote, onClose,
   if (!quote) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">Recevoir le devis</h3>
+    <div className="quotedl-modal-bg">
+      <div className="quotedl-modal">
+        <div className="quotedl-modal-header">
+          <h3 className="quotedl-modal-title">Recevoir le devis</h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="quotedl-modal-close"
+            aria-label="Fermer"
           >
-            <X className="h-6 w-6" />
+            <X size={22} />
           </button>
         </div>
-        <div className="mb-6">
-          <div className="flex items-center space-x-3 mb-4">
-            <div className="text-2xl">{quote.logo}</div>
+        <div className="quotedl-modal-content">
+          <div className="quotedl-modal-insurer">
+            <span className="quotedl-modal-logo">{quote.logo}</span>
             <div>
-              <h4 className="font-medium text-gray-900">{quote.insurer}</h4>
-              <p className="text-sm text-gray-600">{quote.coverage}</p>
+              <div className="quotedl-modal-insurer-name">{quote.insurer}</div>
+              <div className="quotedl-modal-insurer-type">{quote.coverage}</div>
             </div>
           </div>
-          <div className="bg-blue-50 rounded-lg p-4">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-700">Prime annuelle:</span>
-              <span className="text-xl font-bold text-blue-600">{quote.price.toLocaleString()} FCFA</span>
-            </div>
+          <div className="quotedl-modal-price-row">
+            <span className="quotedl-modal-price-label">Prime annuelle:</span>
+            <span className="quotedl-modal-price">{quote.price.toLocaleString()} FCFA</span>
           </div>
         </div>
-        <div className="space-y-3">
+        <div className="quotedl-modal-actions">
           <button
-            onClick={() => {
-              onDownload(quote);
-              onClose();
-            }}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
+            onClick={() => { onDownload(quote); onClose(); }}
+            className="quotedl-modal-btn quotedl-modal-btn-primary"
           >
-            <Download className="h-5 w-5" />
-            <span>Télécharger le devis PDF</span>
+            <Download size={18} /> Télécharger le devis PDF
           </button>
-
           <button
-            onClick={() => {
-              onSendEmail();
-              onClose();
-            }}
-            className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center space-x-2"
+            onClick={() => { onSendEmail(); onClose(); }}
+            className="quotedl-modal-btn quotedl-modal-btn-secondary"
           >
-            <Mail className="h-5 w-5" />
-            <span>Envoyer par Email</span>
+            <Mail size={18} /> Envoyer par Email
           </button>
-
           <button
-            onClick={() => {
-              onSendWhatsApp();
-              onClose();
-            }}
-            className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center space-x-2"
+            onClick={() => { onSendWhatsApp(); onClose(); }}
+            className="quotedl-modal-btn quotedl-modal-btn-whatsapp"
           >
-            <MessageSquare className="h-5 w-5" />
-            <span>Envoyer par WhatsApp</span>
+            <MessageSquare size={18} /> Envoyer par WhatsApp
           </button>
         </div>
       </div>
