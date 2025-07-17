@@ -17,7 +17,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 const App: React.FC = () => {
   const [showQuoteForm, setShowQuoteForm] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
+  // Initialisation de currentStep à 0 pour afficher l'étape « Vous êtes » en premier
+  const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
     age: '',
     licenseYears: '',
@@ -113,14 +114,14 @@ const App: React.FC = () => {
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
+    if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
   };
 
   const resetForm = () => {
     setShowQuoteForm(false);
-    setCurrentStep(1);
+    setCurrentStep(0);
     setShowResults(false);
     setFormData({
       age: '',

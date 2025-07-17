@@ -29,6 +29,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
     onOptionToggle(option);
   };
 
+  // Nombre total d'étapes (0: Vous êtes, 1: Profil, 2: Véhicule, 3: Assurance)
+  const totalSteps = 4;
+
   return (
     <div className="quoteformw-bg">
       <div className="quoteformw-container">
@@ -45,187 +48,404 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
         {/* Progress Bar */}
         <div className="quoteformw-progress">
           <div className="quoteformw-progress-labels">
-            <span>Étape {currentStep} sur 3</span>
-            <span>{Math.round((currentStep / 3) * 100)}% complété</span>
+            <span>Étape {currentStep + 1} sur {totalSteps}</span>
+            <span>{Math.round(((currentStep + 1) / totalSteps) * 100)}% complété</span>
           </div>
           <div className="quoteformw-progress-bar">
             <div
               className="quoteformw-progress-bar-inner"
-              style={{ width: `${(currentStep / 3) * 100}%` }}
+              style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
             ></div>
           </div>
         </div>
-        {/* Step 1: Profil Conducteur */}
+        {/* Step 0: Vous êtes */}
+        {currentStep === 0 && (
+          <div className="quoteformw-step">
+            <h3 className="quoteformw-step-title">Vous êtes</h3>
+            <div style={{ textAlign: 'center', margin: '24px 0' }}>
+              <div style={{ marginBottom: 16 }}>Je souhaite avoir un devis pour :</div>
+              <div className="quoteformw-radio-group" style={{ justifyContent: 'center' }}>
+                <label style={{ margin: '0 16px' }}>
+                  <input type="radio" name="devisPour" value="Moi même" checked={formData.devisPour === 'Moi même'} onChange={(e) => handleInputChange(e, 'devisPour')} required /> Moi même
+                </label>
+                <label style={{ margin: '0 16px' }}>
+                  <input type="radio" name="devisPour" value="Quelqu'un d'autre" checked={formData.devisPour === "Quelqu'un d'autre"} onChange={(e) => handleInputChange(e, 'devisPour')} required /> Quelqu'un d'autre
+                </label>
+                <label style={{ margin: '0 16px' }}>
+                  <input type="radio" name="devisPour" value="Une entreprise" checked={formData.devisPour === 'Une entreprise'} onChange={(e) => handleInputChange(e, 'devisPour')} required /> Une entreprise
+                </label>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* Step 1: Profil de l'assuré */}
         {currentStep === 1 && (
           <div className="quoteformw-step">
-            <h3 className="quoteformw-step-title">Profil Conducteur</h3>
+            <h3 className="quoteformw-step-title">Profil de l'assuré</h3>
+            <div className="quoteformw-info-box">
+              Ces informations nous permettront de vous identifier et éditer votre police d'assurance.
+            </div>
             <div className="quoteformw-grid">
               <div>
-                <label className="quoteformw-label">Âge</label>
+                <label className="quoteformw-label">Nom*</label>
                 <input
-                  type="number"
-                  value={formData.age}
-                  onChange={(e) => handleInputChange(e, 'age')}
+                  type="text"
+                  value={formData.nom}
+                  onChange={(e) => handleInputChange(e, 'nom')}
                   className="quoteformw-input"
-                  placeholder="Ex: 30"
+                  placeholder="Nom"
+                  required
                 />
               </div>
               <div>
-                <label className="quoteformw-label">Années de permis</label>
+                <label className="quoteformw-label">Prénom*</label>
                 <input
-                  type="number"
-                  value={formData.licenseYears}
-                  onChange={(e) => handleInputChange(e, 'licenseYears')}
+                  type="text"
+                  value={formData.prenom}
+                  onChange={(e) => handleInputChange(e, 'prenom')}
                   className="quoteformw-input"
-                  placeholder="Ex: 5"
+                  placeholder="Prénom"
+                  required
                 />
               </div>
             </div>
-            <div>
-              <label className="quoteformw-label">Sinistres dans les 3 dernières années</label>
-              <select
-                value={formData.accidents}
-                onChange={(e) => handleInputChange(e, 'accidents')}
-                className="quoteformw-input"
-              >
-                <option value="">Sélectionner</option>
-                <option value="0">Aucun sinistre</option>
-                <option value="1">1 sinistre</option>
-                <option value="2">2 sinistres</option>
-                <option value="3+">3 sinistres ou plus</option>
-              </select>
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Sexe*</label>
+                <select
+                  value={formData.sexe}
+                  onChange={(e) => handleInputChange(e, 'sexe')}
+                  className="quoteformw-input"
+                  required
+                >
+                  <option value="">Sélectionner</option>
+                  <option value="Homme">Homme</option>
+                  <option value="Femme">Femme</option>
+                </select>
+              </div>
+              <div>
+                <label className="quoteformw-label">Date de naissance</label>
+                <input
+                  type="date"
+                  value={formData.dateNaissance}
+                  onChange={(e) => handleInputChange(e, 'dateNaissance')}
+                  className="quoteformw-input"
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label className="quoteformw-label">Usage du véhicule</label>
-              <select
-                value={formData.usage}
-                onChange={(e) => handleInputChange(e, 'usage')}
-                className="quoteformw-input"
-              >
-                <option value="">Sélectionner</option>
-                <option value="personnel">Personnel</option>
-                <option value="professionnel">Professionnel</option>
-                <option value="mixte">Mixte</option>
-              </select>
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Adresse email de l'assuré</label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange(e, 'email')}
+                  className="quoteformw-input"
+                  placeholder="exemple@email.com"
+                  required
+                />
+              </div>
+              <div>
+                <label className="quoteformw-label">Numéro de téléphone*</label>
+                <input
+                  type="tel"
+                  value={formData.telephone}
+                  onChange={(e) => handleInputChange(e, 'telephone')}
+                  className="quoteformw-input"
+                  placeholder="07 00 00 00 00"
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label className="quoteformw-label">Kilométrage annuel</label>
-              <select
-                value={formData.annualKm}
-                onChange={(e) => handleInputChange(e, 'annualKm')}
-                className="quoteformw-input"
-              >
-                <option value="">Sélectionner</option>
-                <option value="0-10000">0 - 10 000 km</option>
-                <option value="10000-20000">10 000 - 20 000 km</option>
-                <option value="20000-30000">20 000 - 30 000 km</option>
-                <option value="30000+">Plus de 30 000 km</option>
-              </select>
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Profession / Catégorie socio professionnelle*</label>
+                <select
+                  value={formData.profession}
+                  onChange={(e) => handleInputChange(e, 'profession')}
+                  className="quoteformw-input"
+                  required
+                >
+                  <option value="">Sélectionner</option>
+                  <option value="Salarié">Salarié</option>
+                  <option value="Indépendant">Indépendant</option>
+                  <option value="Étudiant">Étudiant</option>
+                  <option value="Retraité">Retraité</option>
+                  <option value="Autre">Autre</option>
+                </select>
+              </div>
+              <div>
+                <label className="quoteformw-label">Date de délivrance permis de conduire*</label>
+                <input
+                  type="date"
+                  value={formData.datePermis}
+                  onChange={(e) => handleInputChange(e, 'datePermis')}
+                  className="quoteformw-input"
+                  required
+                />
+              </div>
             </div>
           </div>
         )}
         {/* Step 2: Véhicule */}
         {currentStep === 2 && (
           <div className="quoteformw-step">
-            <h3 className="quoteformw-step-title">Informations Véhicule</h3>
+            <h3 className="quoteformw-step-title">Votre véhicule</h3>
+            <div className="quoteformw-info-box">
+              Les informations concernant votre véhicule sont marquées sur votre <b>Carte grise</b>. Veuillez vous en servir pour pouvoir renseigner ces champs.
+            </div>
+            <div className="quoteformw-grid">
+              <div style={{ gridColumn: '1 / span 2' }}>
+                <label className="quoteformw-label">Numéro d'immatriculation*</label>
+                <input
+                  type="text"
+                  value={formData.immatriculation}
+                  onChange={(e) => handleInputChange(e, 'immatriculation')}
+                  className="quoteformw-input"
+                  placeholder="Ex: 1234AB01"
+                  required
+                />
+              </div>
+            </div>
             <div className="quoteformw-grid">
               <div>
-                <label className="quoteformw-label">Valeur du véhicule (FCFA)</label>
+                <label className="quoteformw-label">Nom sur la carte grise*</label>
                 <input
-                  type="number"
-                  value={formData.vehicleValue}
-                  onChange={(e) => handleInputChange(e, 'vehicleValue')}
+                  type="text"
+                  value={formData.nomCarteGrise}
+                  onChange={(e) => handleInputChange(e, 'nomCarteGrise')}
                   className="quoteformw-input"
-                  placeholder="Ex: 5000000"
+                  placeholder="Entrez le nom figurant sur la carte grise"
+                  required
                 />
               </div>
               <div>
-                <label className="quoteformw-label">Nombre de places</label>
-                <select
-                  value={formData.seats}
-                  onChange={(e) => handleInputChange(e, 'seats')}
+                <label className="quoteformw-label">Marque*</label>
+                <input
+                  type="text"
+                  value={formData.marque}
+                  onChange={(e) => handleInputChange(e, 'marque')}
                   className="quoteformw-input"
-                >
-                  <option value="">Sélectionner</option>
-                  <option value="2">2 places</option>
-                  <option value="4">4 places</option>
-                  <option value="5">5 places</option>
-                  <option value="7">7 places</option>
-                  <option value="9+">9 places ou plus</option>
-                </select>
+                  placeholder="Sélectionner la marque de votre véhicule"
+                  required
+                />
               </div>
             </div>
-            <div>
-              <label className="quoteformw-label">Type d'énergie</label>
-              <select
-                value={formData.energy}
-                onChange={(e) => handleInputChange(e, 'energy')}
-                className="quoteformw-input"
-              >
-                <option value="">Sélectionner</option>
-                <option value="essence">Essence</option>
-                <option value="diesel">Diesel</option>
-                <option value="hybride">Hybride</option>
-                <option value="electrique">Électrique</option>
-              </select>
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Genre du véhicule*</label>
+                <input
+                  type="text"
+                  value={formData.genre}
+                  onChange={(e) => handleInputChange(e, 'genre')}
+                  className="quoteformw-input"
+                  required
+                />
+              </div>
+              <div>
+                <label className="quoteformw-label">Catégorie/Usage du véhicule*</label>
+                <input
+                  type="text"
+                  value={formData.categorie}
+                  onChange={(e) => handleInputChange(e, 'categorie')}
+                  className="quoteformw-input"
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label className="quoteformw-label">Date d'immatriculation</label>
-              <input
-                type="date"
-                value={formData.registrationDate}
-                onChange={(e) => handleInputChange(e, 'registrationDate')}
-                className="quoteformw-input"
-              />
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Puissance fiscale*</label>
+                <input
+                  type="text"
+                  value={formData.puissance}
+                  onChange={(e) => handleInputChange(e, 'puissance')}
+                  className="quoteformw-input"
+                  required
+                />
+              </div>
+              <div>
+                <label className="quoteformw-label">Énergie*</label>
+                <div className="quoteformw-radio-group">
+                  <label><input type="radio" name="energie" value="Essence" checked={formData.energie === 'Essence'} onChange={(e) => handleInputChange(e, 'energie')} required /> Essence</label>
+                  <label><input type="radio" name="energie" value="Diesel" checked={formData.energie === 'Diesel'} onChange={(e) => handleInputChange(e, 'energie')} required /> Diesel</label>
+                </div>
+              </div>
+            </div>
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Prix à neuf*</label>
+                <input
+                  type="number"
+                  value={formData.prixNeuf}
+                  onChange={(e) => handleInputChange(e, 'prixNeuf')}
+                  className="quoteformw-input"
+                  placeholder="FCFA"
+                  required
+                />
+              </div>
+              <div>
+                <label className="quoteformw-label">Prix estimé de la vente*</label>
+                <input
+                  type="number"
+                  value={formData.prixVente}
+                  onChange={(e) => handleInputChange(e, 'prixVente')}
+                  className="quoteformw-input"
+                  placeholder="FCFA"
+                  required
+                />
+              </div>
+            </div>
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Date 1ère mise en circulation*</label>
+                <input
+                  type="date"
+                  value={formData.dateMiseCirculation}
+                  onChange={(e) => handleInputChange(e, 'dateMiseCirculation')}
+                  className="quoteformw-input"
+                  required
+                />
+              </div>
+              <div>
+                <label className="quoteformw-label">Nombre de place assise*</label>
+                <input
+                  type="number"
+                  value={formData.nbPlaces}
+                  onChange={(e) => handleInputChange(e, 'nbPlaces')}
+                  className="quoteformw-input"
+                  required
+                />
+              </div>
+            </div>
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Ville/Zone de stationnement*</label>
+                <select
+                  value={formData.ville}
+                  onChange={(e) => handleInputChange(e, 'ville')}
+                  className="quoteformw-input"
+                  required
+                >
+                  <option value="">Sélectionner</option>
+                  <option value="Abidjan">Abidjan</option>
+                  <option value="Bouaké">Bouaké</option>
+                  <option value="Yamoussoukro">Yamoussoukro</option>
+                  <option value="San Pedro">San Pedro</option>
+                  <option value="Autre">Autre</option>
+                </select>
+              </div>
+              <div>
+                <label className="quoteformw-label">Couleur du véhicule*</label>
+                <input
+                  type="text"
+                  value={formData.couleur}
+                  onChange={(e) => handleInputChange(e, 'couleur')}
+                  className="quoteformw-input"
+                  required
+                />
+              </div>
             </div>
           </div>
         )}
         {/* Step 3: Besoins d'assurance */}
         {currentStep === 3 && (
           <div className="quoteformw-step">
-            <h3 className="quoteformw-step-title">Besoins d'assurance</h3>
-            <div>
-              <label className="quoteformw-label">Type de couverture</label>
-              <select
-                value={formData.coverage}
-                onChange={(e) => handleInputChange(e, 'coverage')}
-                className="quoteformw-input"
-              >
-                <option value="">Sélectionner</option>
-                <option value="tiers">Responsabilité civile (Tiers)</option>
-                <option value="tiers-etendu">Tiers étendu</option>
-                <option value="tous-risques">Tous risques</option>
-              </select>
+            <h3 className="quoteformw-step-title">Votre assurance</h3>
+            <div className="quoteformw-info-box">
+              Selectionnez et définissez la formule d'assurance automobile qui vous convient.
             </div>
-            <div>
-              <label className="quoteformw-label">Franchise souhaitée (FCFA)</label>
-              <select
-                value={formData.deductible}
-                onChange={(e) => handleInputChange(e, 'deductible')}
-                className="quoteformw-input"
-              >
-                <option value="">Sélectionner</option>
-                <option value="0">Sans franchise</option>
-                <option value="25000">25 000 FCFA</option>
-                <option value="50000">50 000 FCFA</option>
-                <option value="100000">100 000 FCFA</option>
-              </select>
-            </div>
-            <div>
-              <label className="quoteformw-label">Options souhaitées</label>
-              <div className="quoteformw-options-grid">
-                {['Assistance 24h/24', 'Véhicule de remplacement', 'Bris de glace', 'Vol/Incendie', 'Protection juridique'].map((option) => (
-                  <label key={option} className="quoteformw-checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={formData.options.includes(option)}
-                      onChange={() => handleOptionToggle(option)}
-                      className="quoteformw-checkbox"
-                    />
-                    <span>{option}</span>
-                  </label>
-                ))}
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Date de prise d'effet du contrat souhaitée*</label>
+                <input
+                  type="date"
+                  value={formData.dateEffet}
+                  onChange={(e) => handleInputChange(e, 'dateEffet')}
+                  className="quoteformw-input"
+                  required
+                />
               </div>
+              <div>
+                <label className="quoteformw-label">Périodicité/Durée du contrat*</label>
+                <select
+                  value={formData.periode}
+                  onChange={(e) => handleInputChange(e, 'periode')}
+                  className="quoteformw-input"
+                  required
+                >
+                  <option value="">Sélectionner</option>
+                  <option value="Annuelle">Annuelle</option>
+                  <option value="Semestrielle">Semestrielle</option>
+                  <option value="Trimestrielle">Trimestrielle</option>
+                  <option value="Mensuelle">Mensuelle</option>
+                </select>
+              </div>
+            </div>
+            <div className="quoteformw-grid">
+              <div style={{ gridColumn: '1 / span 2' }}>
+                <label className="quoteformw-label">Avez-vous une préférence pour une compagnie particulière ?</label>
+                <select
+                  value={formData.preferenceCompagnie}
+                  onChange={(e) => handleInputChange(e, 'preferenceCompagnie')}
+                  className="quoteformw-input"
+                  required
+                >
+                  <option value="NON">NON</option>
+                  <option value="OUI">OUI</option>
+                </select>
+              </div>
+            </div>
+            <div className="quoteformw-grid">
+              <div>
+                <label className="quoteformw-label">Formule d'assurance*</label>
+                <div className="quoteformw-radio-group">
+                  <label><input type="radio" name="formule" value="Tiers Simple" checked={formData.formule === 'Tiers Simple'} onChange={(e) => handleInputChange(e, 'formule')} required /> Tiers Simple</label>
+                  <label><input type="radio" name="formule" value="Tiers Complet" checked={formData.formule === 'Tiers Complet'} onChange={(e) => handleInputChange(e, 'formule')} required /> Tiers Complet</label>
+                  <label><input type="radio" name="formule" value="Tous risques" checked={formData.formule === 'Tous risques'} onChange={(e) => handleInputChange(e, 'formule')} required /> Tous risques</label>
+                </div>
+              </div>
+              <div>
+                <label className="quoteformw-label">Type de souscription*</label>
+                <div className="quoteformw-radio-group">
+                  <label>
+                    <input
+                      type="radio"
+                      name="typeSouscription"
+                      value="Prédefinie"
+                      checked={formData.typeSouscription === 'Prédefinie'}
+                      onClick={e => {
+                        if (formData.typeSouscription === 'Prédefinie') {
+                          onInputChange('typeSouscription', '');
+                        }
+                      }}
+                      onChange={e => handleInputChange(e, 'typeSouscription')}
+                      required
+                    /> Choisir une Formule prédéfinie
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="quoteformw-info-box" style={{ marginTop: 16 }}>
+              {/* Zone d'information sur la formule sélectionnée */}
+              {formData.formule === 'Tiers Simple' && (
+                <div>
+                  <b>L'assurance au tiers simple</b> est la formule Auto la plus basique et obligatoire.<br />
+                  Elle renferme les garanties suivantes :<br />
+                  <b>La responsabilité civile :</b> Elle ne couvre que les dommages matériels et corporels causés aux tiers, en cas d'accident dont vous êtes responsables. Elle ne couvre pas ceux que vous-même et votre véhicule subissez.
+                </div>
+              )}
+              {formData.formule === 'Tiers Complet' && (
+                <div>
+                  <b>L'assurance au tiers complet</b> offre une couverture plus étendue que le tiers simple, incluant des garanties supplémentaires selon les assureurs.
+                </div>
+              )}
+              {formData.formule === 'Tous risques' && (
+                <div>
+                  <b>L'assurance tous risques</b> est la formule la plus complète, couvrant la plupart des dommages subis par votre véhicule, même en cas d'accident responsable.
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -233,8 +453,8 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
         <div className="quoteformw-nav">
           <button
             onClick={onPrevStep}
-            disabled={currentStep === 1}
-            className={`quoteformw-btn quoteformw-btn-secondary${currentStep === 1 ? ' quoteformw-btn-disabled' : ''}`}
+            disabled={currentStep === 0}
+            className={`quoteformw-btn quoteformw-btn-secondary${currentStep === 0 ? ' quoteformw-btn-disabled' : ''}`}
           >
             Précédent
           </button>

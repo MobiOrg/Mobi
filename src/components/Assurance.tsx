@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 const assurances = [
   { icon: <Car size={32} />, title: 'Auto', desc: "Protégez votre véhicule et vos proches avec la meilleure assurance auto du marché." },
   { icon: <Bike size={32} />, title: 'Moto', desc: "Comparez les offres pour rouler en toute sécurité, même à deux roues." },
-  { icon: <Home size={32} />, title: 'Habitation', desc: "Assurez votre maison ou appartement contre les imprévus du quotidien." },
-  { icon: <HeartPulse size={32} />, title: 'Santé', desc: "Bénéficiez d'une couverture santé adaptée à vos besoins et à votre budget." },
 ];
 
 const avantages = [

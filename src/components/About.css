@@ -5,8 +5,8 @@
 }
 
 .about-hero {
-  background: linear-gradient(90deg, var(--color-blue-main) 0%, var(--color-blue-dark) 100%);
-  padding: 48px 0 32px 0;
+  background: linear-gradient(to bottom, #1F3F74, #2D6AA0, #3E8BC4);
+  padding:56px 0 36px 0;
   text-align: center;
   border-radius: 0 0 32px 32px;
   box-shadow: 0 8px 32px 0 #22314A22;

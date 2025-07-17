@@ -7,45 +7,25 @@ const team = [
 ];
 
 const About = () => (
-  <div className="about-bg">
-    <div className="about-hero">
-      <div className="about-hero-title">À propos de NOLI Motor</div>
-      <div className="about-hero-desc">
-        Le comparateur d'assurance auto de référence en Côte d'Ivoire.<br />
-        Comparez, choisissez, roulez en toute sérénité.
-      </div>
-    </div>
-    <div className="about-container">
-      <div className="about-section">
-        <h2 className="about-section-title">Notre mission</h2>
-        <p className="about-section-desc">
-          Nous aidons les automobilistes à trouver la meilleure offre d'assurance adaptée à leur profil et à leur budget, en toute impartialité. Notre plateforme analyse des dizaines d'assureurs et vous propose les meilleures garanties au meilleur prix.
-        </p>
-      </div>
-      <div className="about-section">
-        <h2 className="about-section-title">Nos valeurs</h2>
-        <ul className="about-values-list">
-          <li><span className="about-value-badge">🤝</span> Transparence</li>
-          <li><span className="about-value-badge">⚡</span> Simplicité</li>
-          <li><span className="about-value-badge">🔒</span> Sécurité</li>
-          <li><span className="about-value-badge">💡</span> Innovation</li>
-        </ul>
-      </div>
-      <div className="about-section">
-        <h2 className="about-section-title">Notre équipe</h2>
-        <div className="about-team">
-          {team.map(member => (
-            <div className="about-team-card" key={member.name}>
-              <div className="about-team-avatar">{member.avatar}</div>
-              <div className="about-team-name">{member.name}</div>
-              <div className="about-team-role">{member.role}</div>
-            </div>
-          ))}
+  <div className="about-bg" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-light)' }}>
+    <div className="about-section-flex" style={{ display: 'flex', gap: '48px', maxWidth: 1100, width: '100%', alignItems: 'center', justifyContent: 'center', padding: '48px 16px' }}>
+      {/* Bloc citation à gauche */}
+      <div className="about-quote-block" style={{ background: '#F6F8FB', borderRadius: '50%', width: 280, height: 280, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 16px #22314A10', textAlign: 'center', flexShrink: 0 }}>
+        <div style={{ fontSize: 32, color: '#2563EB', marginBottom: 16 }}>💬</div>
+        <div style={{ fontSize: '1.08rem', color: '#22314A', marginBottom: 18, padding: '0 18px' }}>
+          “Notre mission est de rendre l’assurance auto simple, transparente et accessible à tous. Nous croyons que chaque conducteur mérite la meilleure protection, au meilleur prix.”
         </div>
+        <div style={{ fontWeight: 700, color: '#2563EB', fontSize: '1.1rem' }}>L’équipe NOLI Motor</div>
       </div>
-      <div className="about-section about-contact">
-        <h2 className="about-section-title">Contact</h2>
-        <p>Une question ? Un partenariat ? <a href="mailto:contact@nolimotor.ci" className="about-link">contact@nolimotor.ci</a></p>
+      {/* Bloc texte à droite */}
+      <div className="about-main-block" style={{ flex: 1, minWidth: 260 }}>
+        <h2 style={{ color: '#2563EB', fontSize: '1.6rem', fontWeight: 800, marginBottom: 18 }}>À propos de NOLI Motor</h2>
+        <p style={{ color: '#22314A', fontSize: '1.08rem', marginBottom: 18 }}>
+          NOLI Motor est le comparateur d’assurance auto de référence en Côte d’Ivoire. Notre plateforme analyse des dizaines d’assureurs pour vous proposer les meilleures garanties au meilleur prix, en toute impartialité.
+        </p>
+        <p style={{ color: '#22314A', fontSize: '1.08rem' }}>
+          Nous croyons que l’assurance doit être simple, rapide et transparente. Notre équipe s’engage à accompagner chaque automobiliste dans sa recherche de protection, pour rouler en toute sérénité.
+        </p>
       </div>
     </div>
   </div>

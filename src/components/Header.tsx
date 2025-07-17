@@ -18,10 +18,16 @@ const Header = () => {
             <Link to="/faq" className="nav-link">FAQ</Link>
            
           </nav>
+          <form className="header-search" onSubmit={e => e.preventDefault()}>
+            <input type="text" className="header-search-input" placeholder="Rechercher..." />
+            <button type="submit" className="header-search-btn">🔍</button>
+          </form>
         </div>
       
     </header>
   );
 };
+
+
 
 export default Header;
