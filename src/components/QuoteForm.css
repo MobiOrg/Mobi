@@ -83,6 +83,19 @@
   flex-direction: column;
   gap: 18px;
   margin-bottom: 8px;
+  /* Animation d'entrée */
+  animation: step-fade-in 0.5s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes step-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .quoteformw-grid {
@@ -224,6 +237,25 @@ select.quoteformw-input {
   background: #3B82F6;
 }
 
+.quoteformw-btn-primary.animate-pulse {
+  animation: btn-pulse 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes btn-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 #3B82F6;
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 12px 4px #3B82F633;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 #3B82F6;
+  }
+}
+
 .quoteformw-btn-secondary {
   background: #F6F8FB;
   color: #22314A;
@@ -256,6 +288,64 @@ select.quoteformw-input {
   font-size: 1.04rem;
   margin-bottom: 18px;
   border-left: 4px solid #22314A;
+}
+
+.quoteformw-radio-group input[type="radio"],
+.quoteformw-checkbox-label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 2px solid #B0B8C1;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  margin-right: 8px;
+  vertical-align: middle;
+  transition: border 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.quoteformw-radio-group input[type="radio"]:checked {
+  background: linear-gradient(90deg, #3B82F6 0%, #22314A 100%);
+  border: 2px solid #3B82F6;
+}
+
+.quoteformw-radio-group input[type="radio"]:checked::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.quoteformw-checkbox-label input[type="checkbox"] {
+  border-radius: 6px;
+  width: 22px;
+  height: 22px;
+}
+
+.quoteformw-checkbox-label input[type="checkbox"]:checked {
+  background: linear-gradient(90deg, #3B82F6 0%, #22314A 100%);
+  border: 2px solid #3B82F6;
+}
+
+.quoteformw-checkbox-label input[type="checkbox"]:checked::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 14px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  position: absolute;
+  left: 7px;
+  top: 2px;
+  transform: rotate(45deg);
 }
 
 @media (max-width: 900px) {

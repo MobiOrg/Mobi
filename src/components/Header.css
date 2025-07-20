@@ -28,6 +28,26 @@
   height: 32px;
   width: 32px;
   color: var(--color-blue-vivid);
+  /* Ajout de l'animation d'entrée */
+  animation: car-bounce-in 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+@keyframes car-bounce-in {
+  0% {
+    transform: translateX(-60px) scale(0.7) rotate(-20deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(10px) scale(1.1) rotate(8deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(-4px) scale(0.95) rotate(-4deg);
+  }
+  100% {
+    transform: translateX(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
 }
 
 .brand {

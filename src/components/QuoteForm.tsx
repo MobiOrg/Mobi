@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import './QuoteForm.css';
 
@@ -31,6 +31,17 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
 
   // Nombre total d'étapes (0: Vous êtes, 1: Profil, 2: Véhicule, 3: Assurance)
   const totalSteps = 4;
+
+  const [isPulsing, setIsPulsing] = useState(false);
+  const nextBtnRef = useRef<HTMLButtonElement>(null);
+
+  const handleNextClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsPulsing(true);
+    setTimeout(() => {
+      setIsPulsing(false);
+      onNextStep();
+    }, 400); // Durée de l'animation
+  };
 
   return (
     <div className="quoteformw-bg">
@@ -459,8 +470,9 @@ const QuoteForm: React.FC<QuoteFormProps> = ({
             Précédent
           </button>
           <button
-            onClick={onNextStep}
-            className="quoteformw-btn quoteformw-btn-primary"
+            ref={nextBtnRef}
+            onClick={handleNextClick}
+            className={`quoteformw-btn quoteformw-btn-primary${isPulsing ? ' animate-pulse' : ''}`}
           >
             {currentStep === 3 ? 'Comparer les offres' : 'Suivant'}
           </button>
