@@ -22,6 +22,12 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.header-logo:hover {
+  transform: scale(1.05);
 }
 
 .car-icon {
@@ -72,31 +78,77 @@
   color: #fff;
 }
 
-.header-search {
-display: flex;
-align-items: center;
-gap: 0.5rem;
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.header-search-input {
-padding: 0.4rem 0.8rem;
-border-radius: 4px 0 0 4px;
-border: none;
-outline: none;
-font-size: 1rem;
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.header-search-btn {
-padding: 0.4rem 0.8rem;
-border-radius: 0 4px 4px 0;
-border: none;
-background: var(--color-footer);
-color: #fff;
-font-size: 1.1rem;
-cursor: pointer;
-transition: background 0.2s;
+.user-name {
+  color: #E5E7EB;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.header-search-btn:hover {
-background: #1e40af;
+.login-btn {
+  background: var(--color-blue-vivid) !important;
+  color: white !important;
+  padding: 0.4rem 0.8rem !important;
+  border-radius: 6px !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+}
+
+.login-btn:hover {
+  background: var(--color-blue-dark) !important;
+  transform: translateY(-1px) !important;
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.logout-btn {
+  background: transparent;
+  color: #E5E7EB;
+  border: 1px solid #E5E7EB;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #E5E7EB;
+  color: var(--color-footer);
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+  
+  .header-nav {
+    gap: 1rem;
+  }
+  
+  .user-menu {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .user-name {
+    display: none;
+  }
 }

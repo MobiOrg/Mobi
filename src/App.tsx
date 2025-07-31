@@ -10,7 +10,11 @@ import Footer from './components/Footer';
 import About from './components/About';
 import FAQ from './components/FAQ';
 import Assurance from './components/Assurance';
-import type { Quote, FormData } from './types/types';
+import Login from './components/Login';
+import Register from './components/Register';
+import Dashboard from './components/Dashboard';
+import Admin from './components/Admin';
+import type { Quote, FormData, User } from './types/types';
 import './LoadingScreen.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -36,6 +40,9 @@ const App: React.FC = () => {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [selectedQuote, setSelectedQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(false);
+  
+  // État d'authentification
+  const [user, setUser] = useState<User | null>(null);
 
   const mockQuotes: Quote[] = [
     {
@@ -154,6 +161,14 @@ const App: React.FC = () => {
     alert('Devis envoyé par WhatsApp avec succès!');
   };
 
+  const handleLogin = (userData: User) => {
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
   if (loading) {
     return (
       <div className="loading-bg">
@@ -168,7 +183,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <Header />
+      <Header user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={
           <div className="main-content min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -209,6 +224,14 @@ const App: React.FC = () => {
         <Route path="/about" element={<About />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/assurance" element={<Assurance />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/register" element={<Register onLogin={handleLogin} />} />
+        <Route path="/dashboard" element={
+          user ? <Dashboard user={user} onLogout={handleLogout} /> : <Login onLogin={handleLogin} />
+        } />
+        <Route path="/admin" element={
+          user && user.role === 'admin' ? <Admin user={user} onLogout={handleLogout} /> : <Login onLogin={handleLogin} />
+        } />
       </Routes>
       <Footer />
     </Router>
